@@ -1,5 +1,5 @@
 <p align="center">
-[![Tests](https://github.com/valorin/random/actions/workflows/php.yml/badge.svg)](https://github.com/valorin/random/actions/workflows/php.yml)
+<a href="https://github.com/valorin/random/actions/workflows/php.yml"><img src="https://github.com/valorin/random/actions/workflows/php.yml/badge.svg"></a>
 <a href="https://packagist.org/packages/valorin/random"><img src="https://img.shields.io/packagist/dt/valorin/random" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/valorin/random"><img src="https://img.shields.io/packagist/v/valorin/random" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/valorin/random"><img src="https://img.shields.io/packagist/l/valorin/random" alt="License"></a>
