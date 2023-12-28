@@ -61,19 +61,34 @@ This is useful for generating OTPs for SMS or email verification codes. These ar
 `rand(100000, 999999)`, which is both insecure and also loses 10% of the possible codes in the `0-99999` range. 
 This provides a secure alternative which includes the full `000000-999999` range (with variable length).
 
+### Random String
+
+Generate a random string of `$length` characters, optionally including `$lower`, `$upper`, `$numbers`, `$symbols`, 
+with `$requireAll = true` used to ensure at least one of each character is always present.
+
+The primary method is `Random::string()`, and there are some friendly wrappers for use in common scenarios.
+
+```php
+// Primary method
+$string = Random::string(int $length = 32, bool $lower = true, bool $upper = true, bool $numbers = true, bool $symbols = false, bool $requireAll = false): string;
+
+// Random letters only
+$string = Random::letters(int $length = 32): string;
+
+// Random letters and numbers (i.e. a random token)
+$string = Random::token(int $length = 32): string;
+
+// Random letters, numbers, and symbols (i.e. a random password)
+$string = Random::password(int $length = 32): string;
+```
+
 ### TODO
 
 ```php
-Random::string($length, $lower, $upper, $numbers, $symbols, $withEverything): string
-Random::letters($length, $withEverything) -> alpha string
-Random::alphanum($length, $withEverything) -> alphanum string
-Random::password($length, $withEverything) -> everything
-Random::passwordWithEverything($length) -> everything
 Random::shuffle(array|collection)
 Random::select($count)
 Random::use(randomizer);
 Random::with(randomizer)->number()
-Random::token()
 ```
 
 ## Contributing

@@ -18,10 +18,10 @@ class OtpTest extends TestCase
 
     public function testLength()
     {
-        for ($i = 0; $i < 10; $i++) {
-            $otp = Random::otp(6);
+        for ($length = 3; $length < 13; $length++) {
+            $otp = Random::otp($length);
 
-            $this->assertEquals(6, strlen($otp));
+            $this->assertEquals($length, strlen($otp));
         }
     }
 
