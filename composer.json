@@ -17,11 +17,11 @@
         }
     ],
     "require": {
-        "php": "^8.2"
+        "php": "^7.0 | ^8.0",
+        "arokettu/random-polyfill": "^1.0"
     },
     "require-dev": {
-        "laravel/pint": "^1.13",
-        "pestphp/pest": "^2.29"
+        "phpunit/phpunit": "^9.6"
     },
     "autoload": {
         "psr-4": {

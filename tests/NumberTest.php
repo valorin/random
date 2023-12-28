@@ -1,11 +1,21 @@
 <?php
 
+namespace Tests;
+
+use PHPUnit\Framework\TestCase;
 use Valorin\Random\Random;
 
-it('generates random numbers', function () {
-    expect(Random::number(1, 1000))
-        ->toBeInt()
-        ->toBeGreaterThanOrEqual(1)
-        ->toBeLessThanOrEqual(1000)
-        ->not->toBe(Random::number(1, 1000));
-})->repeat(10);
+class NumberTest extends TestCase
+{
+    public function testRandomNumbers()
+    {
+        for ($i = 0; $i < 10; $i++) {
+            $number = Random::number(1, 100000);
+
+            $this->assertIsInt($number);
+            $this->assertGreaterThanOrEqual(1, $number);
+            $this->assertLessThanOrEqual(100000, $number);
+            $this->assertNotEquals(Random::number(1, 100000), $number);
+        }
+    }
+}

@@ -1,5 +1,5 @@
 <p align="center">
-<a href="https://github.com/valorin/random/actions"><img src="https://github.com/valorin/random/workflows/tests/badge.svg" alt="Build Status"></a>
+[![Tests](https://github.com/valorin/random/actions/workflows/php.yml/badge.svg)](https://github.com/valorin/random/actions/workflows/php.yml)
 <a href="https://packagist.org/packages/valorin/random"><img src="https://img.shields.io/packagist/dt/valorin/random" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/valorin/random"><img src="https://img.shields.io/packagist/v/valorin/random" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/valorin/random"><img src="https://img.shields.io/packagist/l/valorin/random" alt="License"></a>
@@ -41,7 +41,7 @@ use Valorin\Random\Random;
 Generate a random number between `$min`, and `$max` (inclusive):
 
 ```php
-return Random::number(int $min, int $max): int;
+$number = Random::number(int $min, int $max): int;
 ```
 
 
