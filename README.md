@@ -54,7 +54,7 @@ For most use cases, I'd suggest sticking with `random_int()` for simplicity.
 Generate a random numeric one-time password (OTP) of `$length` digits:
 
 ```php
-$otp = Random::otp(int $length, string $prefix = '0'): string;
+$otp = Random::otp(int $length): string;
 ```
 
 This is useful for generating OTPs for SMS or email verification codes. These are commonly done using 

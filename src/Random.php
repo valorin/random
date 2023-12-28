@@ -16,16 +16,6 @@ class Random
         return self::randomizer()->getInt($min, $max);
     }
 
-    public static function otp(int $length, string $prefix = '0'): string
-    {
-        return str_pad(
-            self::number(0, (int) str_repeat('9', $length)),
-            $length,
-            $prefix,
-            STR_PAD_LEFT
-        );
-    }
-
     public static function string(int $length = 32, $lower = true, $upper = true, $numbers = true, $symbols = true, bool $requireAll = false): string
     {
         $symbolMap = [
@@ -59,6 +49,11 @@ class Random
         }
 
         return $string;
+    }
+
+    public static function otp(int $length): string
+    {
+        return self::string($length, false, false, true, false);
     }
 
     public static function letters(int $length = 32)

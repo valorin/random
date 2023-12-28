@@ -25,28 +25,17 @@ class OtpTest extends TestCase
         }
     }
 
-    public function testDefaultPrefix()
+    public function testLeadingZerosAreSupported()
     {
         $valid = false;
         for ($i = 0; $i < 100; $i++) {
-            $otp = Random::otp(3, '0');
+            $otp = Random::otp(3);
 
             $this->assertIsString($otp);
+            $this->assertEquals(3, strlen($otp));
             $valid = $valid || substr($otp, 0, 1) === '0';
         }
 
-        $this->assertTrue($valid, 'Prefix "z" was never seen in the results. (Low chance of a false positive.)');
-    }
-
-    public function testCustomPrefix()
-    {
-        $valid = false;
-        for ($i = 0; $i < 100; $i++) {
-            $otp = Random::otp(3, 'z');
-
-            $valid = $valid || substr($otp, 0, 1) === 'z';
-        }
-
-        $this->assertTrue($valid, 'Prefix "z" was never seen in the results. (Low chance of a false positive.)');
+        $this->assertTrue($valid, 'Leading Zero was not seen in the results. (Low chance of a false positive.)');
     }
 }
