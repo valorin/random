@@ -153,10 +153,10 @@ class StringTest extends TestCase
                 $requireAll = true
             );
 
-            $this->assertMatchesRegularExpression('/[a-z]/', $string);
-            $this->assertMatchesRegularExpression('/[A-Z]/', $string);
-            $this->assertMatchesRegularExpression('/[0-9]/', $string);
-            $this->assertMatchesRegularExpression('/[^a-zA-Z0-9]/', $string);
+            $this->assertRegExpCustom('/[a-z]/', $string);
+            $this->assertRegExpCustom('/[A-Z]/', $string);
+            $this->assertRegExpCustom('/[0-9]/', $string);
+            $this->assertRegExpCustom('/[^a-zA-Z0-9]/', $string);
         }
     }
 
@@ -166,7 +166,7 @@ class StringTest extends TestCase
             $string = Random::letters();
 
             $this->assertIsString($string);
-            $this->assertMatchesRegularExpression('/^[a-zA-Z]+$/', $string);
+            $this->assertRegExpCustom('/^[a-zA-Z]+$/', $string);
         }
     }
 
@@ -176,7 +176,7 @@ class StringTest extends TestCase
             $string = Random::token();
 
             $this->assertIsString($string);
-            $this->assertMatchesRegularExpression('/^[a-zA-Z0-9]+$/', $string);
+            $this->assertRegExpCustom('/^[a-zA-Z0-9]+$/', $string);
         }
     }
 
@@ -197,4 +197,13 @@ class StringTest extends TestCase
     }
 
     // @TODO Custom character sets
+
+    protected function assertRegExpCustom($expression, $string, $message = '')
+    {
+        if (method_exists(parent::class, 'assertMatchesRegularExpression')) {
+            return parent::assertMatchesRegularExpression($expression, $string, $message);
+        }
+
+        return $this->assertRegExp($expression, $string, $message);
+    }
 }
