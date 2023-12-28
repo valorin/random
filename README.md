@@ -78,7 +78,7 @@ $string = Random::letters(int $length = 32): string;
 // Random letters and numbers (i.e. a random token)
 $string = Random::token(int $length = 32): string;
 
-// Random letters, numbers, and symbols (i.e. a random password)
+// Random letters, numbers, and symbols (i.e. a random password), note it doesn't guarantee all character types are present.
 $string = Random::password(int $length = 32): string;
 ```
 

@@ -6,16 +6,32 @@ use Random\Randomizer;
 
 class Random
 {
+    /** @var \Random\Randomizer */
     protected static $randomizer;
 
     /**
-     * Generate a random number between $min and $max.
+     * Generate a random number between $min and $max, inclusive.
+     *
+     * @param int $min
+     * @param int $max
+     * @return int
      */
     public static function number(int $min, int $max): int
     {
         return self::randomizer()->getInt($min, $max);
     }
 
+    /**
+     * Generate a random string of $length characters, following the specified character rules.
+     *
+     * @param int $length
+     * @param bool $lower
+     * @param bool $upper
+     * @param bool $numbers
+     * @param bool $symbols
+     * @param bool $requireAll  If true, at least one character from each set will be included.
+     * @return string
+     */
     public static function string(int $length = 32, $lower = true, $upper = true, $numbers = true, $symbols = true, bool $requireAll = false): string
     {
         $symbolMap = [
@@ -51,35 +67,62 @@ class Random
         return $string;
     }
 
-    public static function otp(int $length): string
+    /**
+     * Generate a numeric One-Time Password (OTP) of $length digits, suitable for use in 2FA.
+     * Leading zeros will be included, so the output is a string rather than an integer.
+     *
+     * @param int $length
+     * @return string
+     */
+    public static function otp(int $length = 6): string
     {
-        return self::string($length, false, false, true, false);
+        return self::string($length, $lower = false, $upper = false, $numbers = true, $symbols = false, $requireAll = false);
     }
 
-    public static function letters(int $length = 32)
+    /**
+     * Generate a random string of $length lowercase and uppercase letters.
+     *
+     * @param int $length
+     * @return string
+     */
+    public static function letters(int $length = 32): string
     {
-        return self::string($length, true, true, false, false, false);
+        return self::string($length, $lower = true, $upper = true, $numbers = false, $symbols = false, $requireAll = false);
     }
 
-    public static function token(int $length = 32)
+    /**
+     * Generate a random string of $length which includes lowercase and uppercase letters, and numbers.
+     * This is suitable for use as a random token with sufficient length, and should have a near-zero chance of collisions.
+     *
+     * @param int $length
+     * @return string
+     */
+    public static function token(int $length = 32): string
     {
         return self::string($length, true, true, true, false, false);
     }
 
-    public static function password(int $length = 32)
+    /**
+     * Generate a random password string of $length which includes lowercase and uppercase letters, numbers, and symbols.
+     * Note, this doesn't guarantee that all the character sets will be included, you can use Random::string() for that.
+     *
+     * @param int $length
+     * @return string
+     */
+    public static function password(int $length = 32): string
     {
-        return self::string($length, true, true, true, true, false);
+        return self::string($length, $lower = true, $upper = true, $numbers = true, $symbols = true, $requireAll = false);
 
     }
 
-    public static function shuffle($value)
+    public static function shuffle($values)
     {
-        if (is_string($value)) {
-            return self::randomizer()->shuffleBytes($value);
+        if (is_string($values)) {
+            return self::randomizer()->shuffleBytes($values);
         }
 
-        if (is_array($value)) {
-            return self::randomizer()->shuffleArray($value);
+        if (is_array($values)) {
+            return self::randomizer()->shuffleArray($values);
         }
 
         throw new \InvalidArgumentException('$value must be a string or an array');
