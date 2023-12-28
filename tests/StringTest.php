@@ -196,7 +196,41 @@ class StringTest extends TestCase
         $this->assertTrue($valid, 'Not all character types were seen in the result. (Low chance of a false positive.)');
     }
 
-    // @TODO Custom character sets
+    public function testCustomCharacterSets()
+    {
+        for ($i = 0; $i < 100; $i++) {
+            $string = Random::string(
+                $length = 32,
+                $lower = range('a', 'f'),
+                $upper = range('G', 'L'),
+                $numbers = range(2, 6),
+                $symbols = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')'],
+                $requireAll = false
+            );
+
+            $this->assertRegExpCustom('/^[a-fG-L2-6!@#$%^&*()]+$/', $string);
+        }
+    }
+
+    public function testCustomCharacterSetsAllRequired()
+    {
+        for ($i = 0; $i < 100; $i++) {
+            $string = Random::string(
+                $length = 32,
+                $lower = range('a', 'f'),
+                $upper = range('G', 'L'),
+                $numbers = range(2, 6),
+                $symbols = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')'],
+                $requireAll = true
+            );
+
+            $this->assertRegExpCustom('/[a-f]/', $string);
+            $this->assertRegExpCustom('/[G-L]/', $string);
+            $this->assertRegExpCustom('/[2-6]/', $string);
+            $this->assertRegExpCustom('/[!@#$%^&*()]/', $string);
+            $this->assertRegExpCustom('/^[a-fG-L2-6!@#$%^&*()]+$/', $string);
+        }
+    }
 
     protected function assertRegExpCustom($expression, $string, $message = '')
     {

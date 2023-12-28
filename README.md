@@ -63,23 +63,46 @@ This provides a secure alternative which includes the full `000000-999999` range
 
 ### Random String
 
-Generate a random string of `$length` characters, optionally including `$lower`, `$upper`, `$numbers`, `$symbols`, 
-with `$requireAll = true` used to ensure at least one of each character is always present.
-
-The primary method is `Random::string()`, and there are some friendly wrappers for use in common scenarios.
+Generate a random string of `$length` characters which includes characters from the enabled character types.
+By default, it will randomly select characters and not guarantee any specific character types are present.
+If you require one of each character to be included, you can set `$requireAll = true`.
 
 ```php
 // Primary method
-$string = Random::string(int $length = 32, bool $lower = true, bool $upper = true, bool $numbers = true, bool $symbols = false, bool $requireAll = false): string;
+$string = Random::string(
+    int $length = 32, 
+    bool|array $lower = true, 
+    bool|array $upper = true, 
+    bool|array $numbers = true,
+    bool|array $symbols = false, 
+    bool $requireAll = false
+): string;
+```
 
+The following are wrappers for common use cases:
+
+```php
 // Random letters only
 $string = Random::letters(int $length = 32): string;
 
 // Random letters and numbers (i.e. a random token)
 $string = Random::token(int $length = 32): string;
 
-// Random letters, numbers, and symbols (i.e. a random password), note it doesn't guarantee all character types are present.
-$string = Random::password(int $length = 32): string;
+// Random letters, numbers, and symbols (i.e. a random password).
+$string = Random::password(int $length = 32, bool $requireAll = false): string;
+```
+
+To specify the character types to use, you can pass an array of characters to use for each type:
+
+```php
+$string = Random::string(
+    int $length = 32, 
+    array $lower = ['a', 'b', 'c'], 
+    array $upper = ['A', 'B', 'C'], 
+    array $numbers = [1, 2, 3],
+    array $symbols = ['!', '@', '#'], 
+    bool $requireAll = false
+): string;
 ```
 
 ### TODO

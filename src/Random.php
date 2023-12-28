@@ -12,8 +12,8 @@ class Random
     /**
      * Generate a random number between $min and $max, inclusive.
      *
-     * @param int $min
-     * @param int $max
+     * @param  int  $min
+     * @param  int  $max
      * @return int
      */
     public static function number(int $min, int $max): int
@@ -23,13 +23,15 @@ class Random
 
     /**
      * Generate a random string of $length characters, following the specified character rules.
+     * The character sets can be overridden by passing an array of characters instead of a boolean.
+     * If $requireAll is true, at least one character from each set will be included.
      *
-     * @param int $length
-     * @param bool $lower
-     * @param bool $upper
-     * @param bool $numbers
-     * @param bool $symbols
-     * @param bool $requireAll  If true, at least one character from each set will be included.
+     * @param  int         $length
+     * @param  bool|array  $lower       If true, lowercase letters will be included. If an array, the array will be used as the character set.
+     * @param  bool|array  $upper       If true, uppercase letters will be included. If an array, the array will be used as the character set.
+     * @param  bool|array  $numbers     If true, numbers will be included. If an array, the array will be used as the character set.
+     * @param  bool|array  $symbols     If true, symbols will be included. If an array, the array will be used as the character set.
+     * @param  bool        $requireAll  If true, at least one character from each set will be included.
      * @return string
      */
     public static function string(int $length = 32, $lower = true, $upper = true, $numbers = true, $symbols = true, bool $requireAll = false): string
@@ -40,10 +42,10 @@ class Random
         ];
 
         $chars = array_filter([
-            $lower ? range('a', 'z') : [],
-            $upper ? range('A', 'Z') : [],
-            $numbers ? range(0, 9) : [],
-            $symbols ? $symbolMap : [],
+            is_array($lower) ? $lower : ($lower ? range('a', 'z') : []),
+            is_array($upper) ? $upper : ($upper ? range('A', 'Z') : []),
+            is_array($numbers) ? $numbers : ($numbers ? range(0, 9) : []),
+            is_array($symbols) ? $symbols : ($symbols ? $symbolMap : []),
         ]);
 
         $string = '';
@@ -71,7 +73,7 @@ class Random
      * Generate a numeric One-Time Password (OTP) of $length digits, suitable for use in 2FA.
      * Leading zeros will be included, so the output is a string rather than an integer.
      *
-     * @param int $length
+     * @param  int  $length
      * @return string
      */
     public static function otp(int $length = 6): string
@@ -82,7 +84,7 @@ class Random
     /**
      * Generate a random string of $length lowercase and uppercase letters.
      *
-     * @param int $length
+     * @param  int  $length
      * @return string
      */
     public static function letters(int $length = 32): string
@@ -94,25 +96,25 @@ class Random
      * Generate a random string of $length which includes lowercase and uppercase letters, and numbers.
      * This is suitable for use as a random token with sufficient length, and should have a near-zero chance of collisions.
      *
-     * @param int $length
+     * @param  int  $length
      * @return string
      */
     public static function token(int $length = 32): string
     {
-        return self::string($length, true, true, true, false, false);
+        return self::string($length, true, true, true, false, true);
     }
 
     /**
      * Generate a random password string of $length which includes lowercase and uppercase letters, numbers, and symbols.
      * Note, this doesn't guarantee that all the character sets will be included, you can use Random::string() for that.
      *
-     * @param int $length
+     * @param  int   $length
+     * @param  bool  $requireAll If true, at least one character from each set will be included.
      * @return string
      */
-    public static function password(int $length = 32): string
+    public static function password(int $length = 32, bool $requireAll = false): string
     {
-        return self::string($length, $lower = true, $upper = true, $numbers = true, $symbols = true, $requireAll = false);
-
+        return self::string($length, $lower = true, $upper = true, $numbers = true, $symbols = true, $requireAll);
     }
 
     public static function shuffle($values)
