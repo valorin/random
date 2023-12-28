@@ -6,7 +6,7 @@ use Random\Randomizer;
 
 class Random
 {
-    protected static ?Randomizer $randomizer;
+    protected static Randomizer $randomizer = null;
 
     /**
      * Generate a random number between $min and $max.
