@@ -24,7 +24,7 @@ composer require valorin/random
 
 There is no need to install any service providers, Random should just work out of the box.
 
-Random is supported on PHP 8.3 and later.
+Random is supported on PHP 7.1 and later. 
 
 ## Usage
 
