@@ -1,0 +1,44 @@
+{
+    "name": "valorin/random",
+    "description": "Random is a simple helper package designed to make it easy to generate a range of different cryptographically secure random values.",
+    "type": "library",
+    "keywords": ["PHP"],
+    "homepage": "https://github.com/valorin/random",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/valorin/random/issues",
+        "source": "https://github.com/valorin/random"
+    },
+    "authors": [
+        {
+            "name": "Stephen Rees-Carter",
+            "email": "stephen@rees-carter.net",
+            "homepage": "https://stephenreescarter.net/"
+        }
+    ],
+    "require": {
+        "php": "^8.2"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.13",
+        "pestphp/pest": "^2.29"
+    },
+    "autoload": {
+        "psr-4": {
+            "Valorin\\Random\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "preferred-install": "dist",
+        "optimize-autoloader": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
