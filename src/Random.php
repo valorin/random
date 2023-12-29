@@ -2,6 +2,7 @@
 
 namespace Valorin\Random;
 
+use Illuminate\Support\Collection;
 use Random\Randomizer;
 
 class Random
@@ -117,17 +118,40 @@ class Random
         return self::string($length, $lower = true, $upper = true, $numbers = true, $symbols = true, $requireAll);
     }
 
-    public static function shuffle($values)
+    /**
+     * Shuffle the characters in a string, array, or Laravel Collection,
+     * optionally preserving the keys.
+     *
+     * @param  string|array|\Illuminate\Support\Collection  $values
+     * @param  bool                                         $preserveKeys
+     * @return string|array|\Illuminate\Support\Collection
+     */
+    public static function shuffle($values, bool $preserveKeys = false)
     {
         if (is_string($values)) {
             return self::randomizer()->shuffleBytes($values);
         }
 
-        if (is_array($values)) {
+        if ($values instanceof Collection) {
+            $shuffled = self::shuffle($values->toArray(), $preserveKeys);
+            $class = get_class($values);
+            return new $class($shuffled);
+        }
+
+        if (! is_array($values)) {
+            throw new \InvalidArgumentException('$value must be a string, array, or \Illuminate\Support\Collection.');
+        }
+
+        if (! $preserveKeys) {
             return self::randomizer()->shuffleArray($values);
         }
 
-        throw new \InvalidArgumentException('$value must be a string or an array');
+        $shuffledKeys = self::randomizer()->shuffleArray(array_keys($values));
+
+        return array_reduce($shuffledKeys, function ($carry, $key) use ($values) {
+            $carry[$key] = $values[$key];
+            return $carry;
+        }, []);
     }
 
     protected static function randomizer(): Randomizer

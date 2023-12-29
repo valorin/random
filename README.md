@@ -105,6 +105,17 @@ $string = Random::string(
 ): string;
 ```
 
+### Shuffle
+
+Securely shuffle a string, array, or Laravel Collection, optionally preserving the keys.
+
+```php
+$shuffled = Random::shuffle(
+    string|array|\Illuminate\Support\Collection $values,
+    bool $preserveKeys = false
+): string|array|\Illuminate\Support\Collection;
+```
+
 ### TODO
 
 ```php
