@@ -141,10 +141,10 @@ $pick = Random::pick(
 
 ## TODO
 
-[] `Random::use(randomizer);` or `Random::with(randomizer)->number()`
-[] Introduce `Generator` for doing the actual work and to allow for custom randomizer engines
-[] Custom randomizer engines
-[] Custom character sets for the string generator -> extract into the generator
+- [ ] `Random::use(randomizer);` or `Random::with(randomizer)->number()`
+- [ ] Introduce `Generator` for doing the actual work and to allow for custom randomizer engines
+- [ ] Custom randomizer engines
+- [ ] Custom character sets for the string generator -> extract into the generator
 
 
 ## Contributing
