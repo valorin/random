@@ -119,12 +119,12 @@ class Random
     }
 
     /**
-     * Shuffle the characters in a string, array, or Laravel Collection,
+     * Shuffle the characters in an array, string, or Laravel Collection,
      * optionally preserving the keys.
      *
-     * @param  string|array|\Illuminate\Support\Collection  $values
+     * @param  array|string|\Illuminate\Support\Collection  $values
      * @param  bool                                         $preserveKeys
-     * @return string|array|\Illuminate\Support\Collection
+     * @return array|string|\Illuminate\Support\Collection
      */
     public static function shuffle($values, bool $preserveKeys = false)
     {
@@ -139,7 +139,7 @@ class Random
         }
 
         if (! is_array($values)) {
-            throw new \InvalidArgumentException('$value must be a string, array, or \Illuminate\Support\Collection.');
+            throw new \InvalidArgumentException('$value must be an array, string, or \Illuminate\Support\Collection.');
         }
 
         if (! $preserveKeys) {
@@ -152,6 +152,49 @@ class Random
             $carry[$key] = $values[$key];
             return $carry;
         }, []);
+    }
+
+    /**
+     * Pick $count random items (or characters) from an array, string, or Laravel Collection.
+     * Passing `$count = 1` will return the single item, while `$count > 1` will return multiple picked items in the original type.
+     *
+     * @param  array|string|\Illuminate\Support\Collection  $values
+     * @param  int                                          $count  Number of items to pick.
+     * @return array|string|\Illuminate\Support\Collection
+     */
+    public static function pick($values, int $count)
+    {
+        $values = self::shuffle($values);
+
+        if ($count === 1) {
+            return  $values[0];
+        }
+
+        if (is_array($values)) {
+            return array_slice($values, 0, $count);
+        }
+
+        if (is_string($values)) {
+            return substr($values, 0, $count);
+        }
+
+        if ($values instanceof Collection) {
+            return $values->slice(0, $count);
+        }
+
+        throw new \InvalidArgumentException('$value must be a string, array, or \Illuminate\Support\Collection.');
+    }
+
+    /**
+     * Picks a single item (or character) from an array, string, or Laravel Collection.
+     * This is the equivalent of calling `Random::pick($values, 1)`;
+     *
+     * @param  array|string|\Illuminate\Support\Collection  $values
+     * @return array|string|\Illuminate\Support\Collection
+     */
+    public static function pickOne($values)
+    {
+        return self::pick($values, 1);
     }
 
     protected static function randomizer(): Randomizer

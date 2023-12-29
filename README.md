@@ -12,7 +12,7 @@ random values in PHP apps.
 
 Random was created because I was constantly encountering weak and insecure random value generations within apps during 
 my [Laravel and PHP Security Audits](https://valorinsecurity.com/) and I wanted a secure solution to point my clients to
-without needing them to implement secure algorithms themselves. The idea was then expanded out a bit to support all of 
+without needing them to implement secure algorithms themselves. The idea was then expanded out a bit to support all 
 the common random value types I've encountered.
 
 ## Installation
@@ -105,25 +105,47 @@ $string = Random::string(
 ): string;
 ```
 
-### Shuffle
+### Shuffle Array, String, or Collection
 
-Securely shuffle a string, array, or Laravel Collection, optionally preserving the keys.
+Securely shuffle an array, string, or Laravel Collection, optionally preserving the keys.
 
 ```php
 $shuffled = Random::shuffle(
-    string|array|\Illuminate\Support\Collection $values,
+    array|string|\Illuminate\Support\Collection $values,
     bool $preserveKeys = false
-): string|array|\Illuminate\Support\Collection;
+): array|string|\Illuminate\Support\Collection;
 ```
 
-### TODO
+### Pick `$count` Items or Characters
+
+Securely pick `$count` items (or characters) from an array, string, or Laravel Collection.
 
 ```php
-Random::shuffle(array|collection)
-Random::select($count)
-Random::use(randomizer);
-Random::with(randomizer)->number()
+$picks = Random::pick(
+    array|string|\Illuminate\Support\Collection $values,
+    int $count
+): array|string|\Illuminate\Support\Collection;
 ```
+
+Passing `$count > 1` will return the picks in the same type as `$values`, so either an array, a Collection,
+or a string of characters.
+
+When passing `$count = 1`, the output will be a single array/collection item or character chosen from the input.
+You can also use the alias `pickOne()` to pick a single item from `$values`:
+
+```php
+$pick = Random::pick(
+    array|string|\Illuminate\Support\Collection $values
+): array|string|\Illuminate\Support\Collection;
+```
+
+## TODO
+
+[] `Random::use(randomizer);` or `Random::with(randomizer)->number()`
+[] Introduce `Generator` for doing the actual work and to allow for custom randomizer engines
+[] Custom randomizer engines
+[] Custom character sets for the string generator -> extract into the generator
+
 
 ## Contributing
 
