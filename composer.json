@@ -22,7 +22,7 @@
     },
     "require-dev": {
         "illuminate/support": "^5.0 | ^10.0",
-        "phpunit/phpunit": "^7.0 | ^10.5"
+        "phpunit/phpunit": "^7.0 | ^9.6 | ^10.5"
     },
     "autoload": {
         "psr-4": {
