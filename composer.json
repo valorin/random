@@ -39,7 +39,7 @@
         "preferred-install": "dist",
         "optimize-autoloader": true,
         "allow-plugins": {
-            "pestphp/pest-plugin": true
+            "kylekatarnls/update-helper": false
         }
     }
 }
