@@ -5,7 +5,7 @@
 <a href="https://packagist.org/packages/valorin/random"><img src="https://img.shields.io/packagist/l/valorin/random" alt="License"></a>
 </p>
 
-# Random by Valorin
+# `Random` by [Valorin](https://stephenreescarter.net/)
 
 Random is a simple helper package designed to make it easy to generate a range of different cryptographically secure 
 random values in PHP apps.
@@ -175,6 +175,12 @@ $password = $generator->password();
 You can use `use()` alongside the character set helpers (`useLower()`, `useUpper()`, `useNumbers()`, `useSymbols()`),
 although you will need to call `use()` first to define the Engine before customising the character set on the 
 `Generator` object.
+
+## Support My Work! ❤️
+
+You can support my work over on [GitHub Sponsors](https://github.com/sponsors/valorin)
+or by becomming a paid subscriber to [Securing Laravel](https://securinglaravel.com/), the essential security resource for 
+Laravel and PHP developers!
 
 ## Contributing
 
