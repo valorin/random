@@ -15,6 +15,9 @@ my [Laravel and PHP Security Audits](https://valorinsecurity.com/) and I wanted 
 without needing them to implement secure algorithms themselves. The idea was then expanded out a bit to support all 
 the common random value types I've encountered.
 
+Random is completely framework agnostic, the only production dependency is the excellent [php-random-polyfill](https://github.com/arokettu/php-random-polyfill),
+which does nothing on PHP 8.2+ where the functions are included in core. It supports Laravel's Collections, but doesn't pull in any Laravel code.
+
 ## Installation
 
 You can install the package via composer:
