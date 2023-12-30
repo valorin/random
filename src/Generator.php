@@ -150,7 +150,7 @@ class Generator
      * @param  bool  $requireAll If true, at least one character from each set will be included.
      * @return string
      */
-    public function password(int $length = 32, bool $requireAll = false): string
+    public function password(int $length = 16, bool $requireAll = false): string
     {
         return $this->string($length, $lower = true, $upper = true, $numbers = true, $symbols = true, $requireAll);
     }

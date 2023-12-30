@@ -89,7 +89,7 @@ $string = Random::letters(int $length = 32): string;
 $string = Random::token(int $length = 32): string;
 
 // Random letters, numbers, and symbols (i.e. a random password).
-$string = Random::password(int $length = 32, bool $requireAll = false): string;
+$string = Random::password(int $length = 16, bool $requireAll = false): string;
 ```
 
 To limit the characters available in any of the types (i.e. lower, upper, numbers, or symbols),
