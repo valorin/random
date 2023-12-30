@@ -11,6 +11,18 @@ class Generator
     /** @var \Random\Randomizer */
     protected $randomizer;
 
+    /** @var array */
+    protected $lowerCharacters;
+
+    /** @var array */
+    protected $upperCharacters;
+
+    /** @var array */
+    protected $numberCharacters;
+
+    /** @var array */
+    protected $symbolCharacters;
+
     /**
      * Construct a new Random\Generator, optionally with a Randomizer Engine.
      *
@@ -19,6 +31,22 @@ class Generator
     public function __construct(Engine $engine = null)
     {
         $this->randomizer = new Randomizer($engine);
+
+        $this->lowerCharacters = [
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+            'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+        ];
+        $this->upperCharacters = [
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+            'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+        ];
+        $this->numberCharacters = [
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+        ];
+        $this->symbolCharacters = [
+            '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/', ':',
+            ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_', '`', '{', '|', '}', '~',
+        ];
     }
 
     /**
@@ -47,17 +75,16 @@ class Generator
      */
     public function string(int $length = 32, bool $lower = true, bool $upper = true, bool $numbers = true, bool $symbols = true, bool $requireAll = false): string
     {
-        $symbolMap = [
-            '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/', ':',
-            ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_', '`', '{', '|', '}', '~',
-        ];
-
         $chars = array_filter([
-            is_array($lower) ? $lower : ($lower ? range('a', 'z') : []),
-            is_array($upper) ? $upper : ($upper ? range('A', 'Z') : []),
-            is_array($numbers) ? $numbers : ($numbers ? range(0, 9) : []),
-            is_array($symbols) ? $symbols : ($symbols ? $symbolMap : []),
+            $lower ? $this->lowerCharacters : [],
+            $upper ? $this->upperCharacters : [],
+            $numbers ? $this->numberCharacters : [],
+            $symbols ? $this->symbolCharacters : [],
         ]);
+
+        if (! $chars) {
+            throw new \InvalidArgumentException('Cannot generate random string with no character sets enabled!');
+        }
 
         $string = '';
 
@@ -205,5 +232,57 @@ class Generator
     public function pickOne($values)
     {
         return $this->pick($values, 1);
+    }
+
+    /**
+     * Use custom lower case character set for random string generation.
+     *
+     * @param array $characters
+     * @return self
+     */
+    public function useLower(array $characters): self
+    {
+        $this->lowerCharacters = $characters;
+
+        return $this;
+    }
+
+    /**
+     * Use custom upper case character set for random string generation.
+     *
+     * @param array $characters
+     * @return self
+     */
+    public function useUpper(array $characters): self
+    {
+        $this->upperCharacters = $characters;
+
+        return $this;
+    }
+
+    /**
+     * Use custom numbers for random string generation.
+     *
+     * @param array $characters
+     * @return self
+     */
+    public function useNumbers(array $characters): self
+    {
+        $this->numberCharacters = $characters;
+
+        return $this;
+    }
+
+    /**
+     * Use custom symbol character set for random string generation.
+     *
+     * @param array $characters
+     * @return self
+     */
+    public function useSymbols(array $characters): self
+    {
+        $this->symbolCharacters = $characters;
+
+        return $this;
     }
 }

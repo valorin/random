@@ -70,11 +70,11 @@ If you require one of each character to be included, you can set `$requireAll = 
 ```php
 // Primary method
 $string = Random::string(
-    int $length = 32, 
-    bool|array $lower = true, 
-    bool|array $upper = true, 
-    bool|array $numbers = true,
-    bool|array $symbols = false, 
+    int $length = 32,
+    bool $lower = true,
+    bool $upper = true,
+    bool $numbers = true,
+    bool $symbols = false,
     bool $requireAll = false
 ): string;
 ```
@@ -92,18 +92,30 @@ $string = Random::token(int $length = 32): string;
 $string = Random::password(int $length = 32, bool $requireAll = false): string;
 ```
 
-To specify the character types to use, you can pass an array of characters to use for each type:
+To limit the characters available in any of the types (i.e. lower, upper, numbers, or symbols),
+you can create a custom Generator instance with your customer character set:
 
 ```php
-$string = Random::string(
-    int $length = 32, 
-    array $lower = ['a', 'b', 'c'], 
-    array $upper = ['A', 'B', 'C'], 
-    array $numbers = [1, 2, 3],
-    array $symbols = ['!', '@', '#'], 
-    bool $requireAll = false
-): string;
+// Override just symbols
+$generator = Random::useSymbols(['!', '@', '#', '$', '%', '^', '&', '*', '(', ')'])->string();
+
+// Override everything
+$generator = Random::useLower(range('a', 'f'))
+    ->useUpper(range('G', 'L'))
+    ->useNumbers(range(2, 6))
+    ->useSymbols(['!', '@', '#', '$', '%', '^', '&', '*', '(', ')']);
+
+$string = $generator->string(
+    $length = 32,
+    $lower = true,
+    $upper = true,
+    $numbers = true,
+    $symbols = true,
+    $requireAll = true
+);
 ```
+
+Note, you can chain the `use*()` methods in any order, and they will persist within that Generator only.
 
 ### Shuffle Array, String, or Collection
 
@@ -160,13 +172,9 @@ $number = $generator->number(1, 1000);
 $password = $generator->password();
 ```
 
-## TODO
-
-- [ ] `Random::use(randomizer);` or `Random::with(randomizer)->number()`
-- [ ] Introduce `Generator` for doing the actual work and to allow for custom randomizer engines
-- [ ] Custom randomizer engines
-- [ ] Custom character sets for the string generator -> extract into the generator
-
+You can use `use()` alongside the character set helpers (`useLower()`, `useUpper()`, `useNumbers()`, `useSymbols()`),
+although you will need to call `use()` first to define the Engine before customising the character set on the 
+`Generator` object.
 
 ## Contributing
 

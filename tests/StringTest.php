@@ -198,13 +198,18 @@ class StringTest extends TestCase
 
     public function testCustomCharacterSets()
     {
+        $generator = Random::useLower(range('a', 'f'))
+            ->useUpper(range('G', 'L'))
+            ->useNumbers(range(2, 6))
+            ->useSymbols(['!', '@', '#', '$', '%', '^', '&', '*', '(', ')']);
+
         for ($i = 0; $i < 100; $i++) {
-            $string = Random::string(
+            $string = $generator->string(
                 $length = 32,
-                $lower = range('a', 'f'),
-                $upper = range('G', 'L'),
-                $numbers = range(2, 6),
-                $symbols = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')'],
+                $lower = true,
+                $upper = true,
+                $numbers = true,
+                $symbols = true,
                 $requireAll = false
             );
 
@@ -214,13 +219,18 @@ class StringTest extends TestCase
 
     public function testCustomCharacterSetsAllRequired()
     {
+        $generator = Random::useLower(range('a', 'f'))
+            ->useUpper(range('G', 'L'))
+            ->useNumbers(range(2, 6))
+            ->useSymbols(['!', '@', '#', '$', '%', '^', '&', '*', '(', ')']);
+
         for ($i = 0; $i < 100; $i++) {
-            $string = Random::string(
+            $string = $generator->string(
                 $length = 32,
-                $lower = range('a', 'f'),
-                $upper = range('G', 'L'),
-                $numbers = range(2, 6),
-                $symbols = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')'],
+                $lower = true,
+                $upper = true,
+                $numbers = true,
+                $symbols = true,
                 $requireAll = true
             );
 

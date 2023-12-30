@@ -5,7 +5,7 @@ namespace Valorin\Random;
 use Illuminate\Support\Collection;
 
 /**
- * @see Generator
+ * @see \Valorin\Random\Generator
  *
  * @method static int number(int $min, int $max) Generate a random number between $min and $max, inclusive.
  * @method static string string(int $length = 32, bool $lower = true, bool $upper = true, bool $numbers = true, bool $symbols = true, bool $requireAll = false) Generate a random string of $length characters, following the specified character rules.
@@ -16,6 +16,10 @@ use Illuminate\Support\Collection;
  * @method static array|string|\Illuminate\Support\Collection shuffle(array|string|\Illuminate\Support\Collection $values, bool $preserveKeys = false) Shuffle the characters in an array, string, or Laravel Collection, optionally preserving the keys.
  * @method static array|string|\Illuminate\Support\Collection pick(array|string|\Illuminate\Support\Collection $values, int $count) Pick $count random items (or characters) from an array, string, or Laravel Collection.
  * @method static array|string|\Illuminate\Support\Collection pickOne(array|string|\Illuminate\Support\Collection $values) Picks a single item (or character) from an array, string, or Laravel Collection.
+ * @method static Generator useLower(array $characters) Use custom lower case character set for random string generation.
+ * @method static Generator useUpper(array $characters) Use custom upper case character set for random string generation.
+ * @method static Generator useNumbers(array $characters) Use custom number characters for random string generation.
+ * @method static Generator useSymbols(array $characters) Use custom symbol character set for random string generation.
  */
 class Random
 {
@@ -29,7 +33,11 @@ class Random
 
     public static function __callStatic($name, $arguments)
     {
-        return static::generator()->{$name}(...$arguments);
+        $generator = strpos($name, 'use') === 0
+            ? new Generator
+            : static::generator();
+
+        return $generator->{$name}(...$arguments);
     }
 
     protected static function generator(): Generator
