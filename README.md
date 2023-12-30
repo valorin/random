@@ -139,6 +139,27 @@ $pick = Random::pick(
 ): array|string|\Illuminate\Support\Collection;
 ```
 
+### Using a specific `\Random\Engine`
+
+By default `Random` will use the secure default `\Random\Engine` defined by PHP. 
+To use a different Engine, pass it to the `use()` method and call the above methods on the returned
+`Generator` class.
+
+```php
+$number = Random::use(\Random\Engine $engine): \Valorin\Random\Generator; 
+```
+
+The primary use case for `use()` is when you need to specify a specific random seed, in order to control the output.
+Only the returned `\Valorin\Random\Generator` object will use the provided Engine (and seed), allowing you to
+create and use the Generator independently of other uses of `Random` within your app.
+
+```php
+$generator = Random::use(new \Random\Engine\Mt19937(3791));
+
+$number = $generator->number(1, 1000);
+$password = $generator->password();
+```
+
 ## TODO
 
 - [ ] `Random::use(randomizer);` or `Random::with(randomizer)->number()`
