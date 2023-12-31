@@ -242,6 +242,83 @@ class StringTest extends TestCase
         }
     }
 
+    public function testUnexpectedLowerInput()
+    {
+        $generator = Random::useLower(range('A', 'f'));
+
+        for ($i = 0; $i < 100; $i++) {
+            $string = $generator->string(
+                $length = 32,
+                $lower = true,
+                $upper = false,
+                $numbers = false,
+                $symbols = false,
+                $requireAll = false
+            );
+
+            $this->assertRegExpCustom('/[a-f]/', $string);
+            $this->assertRegExpCustom('/[^A-Z]/', $string);
+        }
+    }
+
+    public function testUnexpectedUpperInput()
+    {
+        $generator = Random::useUpper(range('A', 'f'));
+
+        for ($i = 0; $i < 100; $i++) {
+            $string = $generator->string(
+                $length = 32,
+                $lower = false,
+                $upper = true,
+                $numbers = false,
+                $symbols = false,
+                $requireAll = false
+            );
+
+            $this->assertRegExpCustom('/[A-Z]/', $string);
+            $this->assertRegExpCustom('/[^a-f]/', $string);
+        }
+    }
+
+    public function testUnexpectedNumbersInput()
+    {
+        $generator = Random::useNumbers([2, 3, 4, 'F', 'a', '#', 88, '9']);
+
+        for ($i = 0; $i < 100; $i++) {
+            $string = $generator->string(
+                $length = 32,
+                $lower = false,
+                $upper = false,
+                $numbers = true,
+                $symbols = false,
+                $requireAll = false
+            );
+
+            $this->assertRegExpCustom('/[2|3|4|9]/', $string);
+        }
+    }
+
+    public function testUnexpectedSymbolsInput()
+    {
+        $generator = Random::useSymbols([2, 3, 4, 'F', 'a', '#', 88, '!', '9']);
+
+        for ($i = 0; $i < 100; $i++) {
+            $string = $generator->string(
+                $length = 32,
+                $lower = false,
+                $upper = false,
+                $numbers = false,
+                $symbols = true,
+                $requireAll = false
+            );
+
+            $this->assertRegExpCustom('/[#!]/', $string);
+            $this->assertRegExpCustom('/[^A-Z]/', $string);
+            $this->assertRegExpCustom('/[^a-f]/', $string);
+            $this->assertRegExpCustom('/[^1-9]/', $string);
+        }
+    }
+
     protected function assertRegExpCustom($expression, $string, $message = '')
     {
         if (method_exists(parent::class, 'assertMatchesRegularExpression')) {

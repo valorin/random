@@ -242,6 +242,10 @@ class Generator
      */
     public function useLower(array $characters): self
     {
+        $characters = array_filter($characters, function($character) {
+            return ctype_lower($character);
+        });
+
         $this->lowerCharacters = $characters;
 
         return $this;
@@ -255,6 +259,10 @@ class Generator
      */
     public function useUpper(array $characters): self
     {
+        $characters = array_filter($characters, function($character) {
+            return ctype_upper($character);
+        });
+
         $this->upperCharacters = $characters;
 
         return $this;
@@ -268,6 +276,10 @@ class Generator
      */
     public function useNumbers(array $characters): self
     {
+        $characters = array_filter($characters, function($character) {
+            return 0 <= $character && $character <= 9;
+        });
+
         $this->numberCharacters = $characters;
 
         return $this;
@@ -281,6 +293,12 @@ class Generator
      */
     public function useSymbols(array $characters): self
     {
+        $charactersASCII = array_merge(range(33, 47), range(58, 64), range(91, 96), range(123, 126));
+
+        $characters = array_filter($characters, function($character) use ($charactersASCII) {
+            return in_array(ord($character), $charactersASCII);
+        });
+
         $this->symbolCharacters = $characters;
 
         return $this;
