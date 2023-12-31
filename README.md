@@ -152,7 +152,7 @@ When passing `$count = 1`, the output will be a single array/collection item or 
 You can also use the alias `pickOne()` to pick a single item from `$values`:
 
 ```php
-$pick = Random::pick(
+$pick = Random::pickOne(
     array|string|\Illuminate\Support\Collection $values
 ): array|string|\Illuminate\Support\Collection;
 ```
