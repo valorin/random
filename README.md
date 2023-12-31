@@ -164,7 +164,7 @@ To use a different Engine, pass it to the `use()` method and call the above meth
 `Generator` class.
 
 ```php
-$number = Random::use(\Random\Engine $engine): \Valorin\Random\Generator; 
+$generator = Random::use(\Random\Engine $engine): \Valorin\Random\Generator; 
 ```
 
 The primary use case for `use()` is when you need to specify a specific random seed, in order to control the output.
