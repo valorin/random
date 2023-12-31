@@ -7,6 +7,8 @@ use Valorin\Random\Random;
 
 class StringTest extends TestCase
 {
+    use Helper;
+
     public function testLength()
     {
         for ($length = 10; $length < 20; $length++) {
@@ -327,14 +329,5 @@ class StringTest extends TestCase
             $this->assertRegExpCustom('/[^a-f]/', $string);
             $this->assertRegExpCustom('/[^1-9]/', $string);
         }
-    }
-
-    protected function assertRegExpCustom($expression, $string, $message = '')
-    {
-        if (method_exists(parent::class, 'assertMatchesRegularExpression')) {
-            return parent::assertMatchesRegularExpression($expression, $string, $message);
-        }
-
-        return $this->assertRegExp($expression, $string, $message);
     }
 }
