@@ -196,6 +196,16 @@ class StringTest extends TestCase
         $this->assertTrue($valid, 'Not all character types were seen in the result. (Low chance of a false positive.)');
     }
 
+    public function testDashed()
+    {
+        for ($i = 0; $i < 100; $i++) {
+            $string = Random::dashed($length = 25, $delimiter = '-');
+
+            $this->assertIsString($string);
+            $this->assertRegExpCustom('/^[a-zA-Z0-9]{5}\-[a-zA-Z0-9]{5}\-[a-zA-Z0-9]{5}\-[a-zA-Z0-9]{5}\-[a-zA-Z0-9]{5}$/', $string);
+        }
+    }
+
     public function testCustomCharacterSets()
     {
         $generator = Random::useLower(range('a', 'f'))

@@ -86,13 +86,16 @@ The following are wrappers for common use cases:
 
 ```php
 // Random letters only
-$string = Random::letters(int $length = 32): string;
+$letters = Random::letters(int $length = 32): string;
 
-// Random letters and numbers (i.e. a random token)
-$string = Random::token(int $length = 32): string;
+// Random alphanumeric (letters and numbers) token string
+$token = Random::token(int $length = 32): string;
 
 // Random letters, numbers, and symbols (i.e. a random password).
-$string = Random::password(int $length = 16, bool $requireAll = false): string;
+$password = Random::password(int $length = 16, bool $requireAll = false): string;
+
+// Random alphanumeric token string with chunks separated by dashes, making it easy to read and type.
+$password = Random::dashed(int $length = 25, string $delimiter = '-', int $chunkLength = 5): string;
 ```
 
 To limit the characters available in any of the types (i.e. lower, upper, numbers, or symbols),

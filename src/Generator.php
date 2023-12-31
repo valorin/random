@@ -156,6 +156,22 @@ class Generator
     }
 
     /**
+     * Generate a random string of $length with lowercase and uppercase letters, and numbers, divided by $divider.
+     * This is suitable for use as a long random password that is easy to read and type.
+     *
+     * @param  int     $length
+     * @param  string  $delimiter
+     * @param  int     $chunkLength = 5
+     * @return string
+     */
+    public function dashed(int $length = 25, string $delimiter = '-', int $chunkLength = 5): string
+    {
+        $string = $this->string($length, true, true, true, false, true);
+
+        return implode($delimiter, str_split($string, $chunkLength));
+    }
+
+    /**
      * Shuffle the characters in an array, string, or Laravel Collection,
      * optionally preserving the keys.
      *
