@@ -187,7 +187,7 @@ although you will need to call `use()` first to define the Engine before customi
 ## Support My Work! ❤️
 
 You can support my work over on [GitHub Sponsors](https://github.com/sponsors/valorin)
-or by becomming a paid subscriber to [Securing Laravel](https://securinglaravel.com/), the essential security resource for 
+or by becoming a paid subscriber to [Securing Laravel](https://securinglaravel.com/), the essential security resource for 
 Laravel and PHP developers!
 
 ## Contributing
