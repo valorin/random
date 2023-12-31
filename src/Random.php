@@ -24,7 +24,7 @@ use Illuminate\Support\Collection;
  */
 class Random
 {
-    /** @var Generator */
+    /** @var Generator|null */
     protected static $generator;
 
     public static function use(\Random\Engine $engine): Generator
@@ -43,6 +43,6 @@ class Random
 
     protected static function generator(): Generator
     {
-        return static::$generator ?: static::$generator = new Generator;
+        return static::$generator ?? static::$generator = new Generator;
     }
 }
