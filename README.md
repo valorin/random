@@ -18,6 +18,8 @@ the common random value types I've encountered.
 Random is completely framework agnostic, the only production dependency is the excellent [php-random-polyfill](https://github.com/arokettu/php-random-polyfill),
 which does nothing on PHP 8.2+ where the functions are included in core. It supports Laravel's Collections, but doesn't pull in any Laravel code.
 
+You can find more about Random in the [Securing Laravel In Depth article](https://securinglaravel.com/p/in-depth-introducing-random).
+
 ## Installation
 
 You can install the package via composer:
