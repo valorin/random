@@ -160,6 +160,23 @@ class StringTest extends TestCase
         }
     }
 
+    public function testCantRequireAllWithoutEnoughLength()
+    {
+        for ($i = 0; $i < 100; $i++) {
+            $this->expectException(\InvalidArgumentException::class);
+            $this->expectExceptionMessage('Length not enough to requireAll!');
+
+            Random::string(
+                $length = 2,
+                $lower = true,
+                $upper = true,
+                $numbers = false,
+                $symbols = true,
+                $requireAll = true
+            );
+        }
+    }
+
     public function testLetters()
     {
         for ($i = 0; $i < 100; $i++) {
