@@ -77,7 +77,7 @@ $string = Random::string(
     bool $lower = true,
     bool $upper = true,
     bool $numbers = true,
-    bool $symbols = false,
+    bool $symbols = true,
     bool $requireAll = false
 ): string;
 ```
