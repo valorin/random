@@ -86,6 +86,10 @@ class Generator
             throw new \InvalidArgumentException('Cannot generate random string with no character sets enabled!');
         }
 
+        if ($requireAll && count($chars) > $length) {
+            throw new \InvalidArgumentException('Length not enough to requireAll!');
+        }
+
         $string = '';
 
         if ($requireAll) {
