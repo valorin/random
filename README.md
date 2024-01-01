@@ -7,8 +7,7 @@
 
 # `Random` by [Valorin](https://stephenreescarter.net/)
 
-Random is a simple helper package designed to make it easy to generate a range of different cryptographically secure 
-random values in PHP apps.
+Random generates cryptographically secure random values in a range of different formats through a simple helper package for PHP.
 
 Random was created because I was constantly encountering weak and insecure random value generations within apps during 
 my [Laravel and PHP Security Audits](https://valorinsecurity.com/) and I wanted a secure solution to point my clients to
