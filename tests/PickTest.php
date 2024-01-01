@@ -8,7 +8,7 @@ use Valorin\Random\Random;
 
 class PickTest extends TestCase
 {
-    use Helper;
+    use Assertions;
 
     public function testPickSingleFromArray()
     {

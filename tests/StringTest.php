@@ -7,7 +7,7 @@ use Valorin\Random\Random;
 
 class StringTest extends TestCase
 {
-    use Helper;
+    use Assertions;
 
     public function testLength()
     {
