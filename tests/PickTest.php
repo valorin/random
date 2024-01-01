@@ -8,6 +8,8 @@ use Valorin\Random\Random;
 
 class PickTest extends TestCase
 {
+    use Assertions;
+
     public function testPickSingleFromArray()
     {
         $differentPick = false;
@@ -145,14 +147,5 @@ class PickTest extends TestCase
         }
 
         $this->assertTrue($differentPick);
-    }
-
-    protected function assertRegExpCustom($expression, $string, $message = '')
-    {
-        if (method_exists(parent::class, 'assertMatchesRegularExpression')) {
-            return parent::assertMatchesRegularExpression($expression, $string, $message);
-        }
-
-        return $this->assertRegExp($expression, $string, $message);
     }
 }
