@@ -1,14 +1,11 @@
 {
     "name": "valorin/random",
     "description": "Random is a simple helper package designed to make it easy to generate a range of different cryptographically secure random values.",
-    "type": "library",
-    "keywords": ["PHP"],
-    "homepage": "https://github.com/valorin/random",
     "license": "MIT",
-    "support": {
-        "issues": "https://github.com/valorin/random/issues",
-        "source": "https://github.com/valorin/random"
-    },
+    "type": "library",
+    "keywords": [
+        "PHP"
+    ],
     "authors": [
         {
             "name": "Stephen Rees-Carter",
@@ -16,13 +13,18 @@
             "homepage": "https://stephenreescarter.net/"
         }
     ],
+    "homepage": "https://github.com/valorin/random",
+    "support": {
+        "issues": "https://github.com/valorin/random/issues",
+        "source": "https://github.com/valorin/random"
+    },
     "require": {
-        "php": "^7.1 | ^8.0",
+        "php": "^7.1 || ^8.0",
         "arokettu/random-polyfill": "^1.0"
     },
     "require-dev": {
-        "illuminate/support": "^5.0 | ^10.0",
-        "phpunit/phpunit": "^7.0 | ^9.6 | ^10.5"
+        "illuminate/support": "^5.0 || ^10.0",
+        "phpunit/phpunit": "^7.0 || ^9.6 || ^10.5"
     },
     "autoload": {
         "psr-4": {
@@ -35,11 +37,11 @@
         }
     },
     "config": {
-        "sort-packages": true,
-        "preferred-install": "dist",
-        "optimize-autoloader": true,
         "allow-plugins": {
             "kylekatarnls/update-helper": false
-        }
+        },
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
     }
 }
