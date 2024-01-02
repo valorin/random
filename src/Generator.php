@@ -124,6 +124,14 @@ class Generator
     }
 
     /**
+     * @alias otp()
+     */
+    public function passcode(int $length = 6): string
+    {
+        return $this->otp($length);
+    }
+
+    /**
      * Generate a random string of $length lowercase and uppercase letters.
      *
      * @param  int  $length

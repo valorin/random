@@ -2,14 +2,13 @@
 
 namespace Valorin\Random;
 
-use Illuminate\Support\Collection;
-
 /**
  * @see \Valorin\Random\Generator
  *
  * @method static int number(int $min, int $max) Generate a random number between $min and $max, inclusive.
  * @method static string string(int $length = 32, bool $lower = true, bool $upper = true, bool $numbers = true, bool $symbols = true, bool $requireAll = false) Generate a random string of $length characters, following the specified character rules.
  * @method static string otp(int $length = 6) Generate a numeric One-Time Password (OTP) of $length digits, suitable for use in 2FA.
+ * @method static string passcode(int $length = 6) Generate a numeric One-Time Password (OTP) of $length digits, suitable for use in 2FA.
  * @method static string letters(int $length = 32) Generate a random string of $length lowercase and uppercase letters.
  * @method static string token(int $length = 32) Generate a random string of $length which includes lowercase and uppercase letters, and numbers.
  * @method static string password(int $length = 32, bool $requireAll = false) Generate a random password string of $length which includes lowercase and uppercase letters, numbers, and symbols.
