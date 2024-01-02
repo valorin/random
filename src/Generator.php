@@ -229,6 +229,10 @@ class Generator
      */
     public function pick($values, int $count)
     {
+        if ($count < 1) {
+            throw new \InvalidArgumentException('Can not pick less than one item.');
+        }
+
         $values = $this->shuffle($values);
 
         if ($count === 1) {

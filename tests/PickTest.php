@@ -10,6 +10,68 @@ class PickTest extends TestCase
 {
     use Assertions;
 
+    public function testCantPickZeroElementFromArray()
+    {
+        for ($i = 0; $i < 10; $i++) {
+            $this->expectException(\InvalidArgumentException::class);
+            $this->expectExceptionMessage('Can not pick less than one item.');
+
+            Random::pick(range('a', 'z'), 0);
+        }
+    }
+
+    public function testCantPickLessThanZeroElementFromArray()
+    {
+        for ($i = 0; $i < 10; $i++) {
+            $this->expectException(\InvalidArgumentException::class);
+            $this->expectExceptionMessage('Can not pick less than one item.');
+
+            Random::pick(range('a', 'z'), -1);
+        }
+    }
+
+    public function testCantPickZeroElementFromString()
+    {
+        for ($i = 0; $i < 10; $i++) {
+            $this->expectException(\InvalidArgumentException::class);
+            $this->expectExceptionMessage('Can not pick less than one item.');
+
+            Random::pick('abcdefghijklmnopqrstuvwxyz', 0);
+        }
+    }
+
+    public function testCantPickLessThanZeroElementFromString()
+    {
+        for ($i = 0; $i < 10; $i++) {
+            $this->expectException(\InvalidArgumentException::class);
+            $this->expectExceptionMessage('Can not pick less than one item.');
+
+            Random::pick('abcdefghijklmnopqrstuvwxyz', -1);
+        }
+    }
+
+    public function testCantPickZeroElementFromCollection()
+    {
+        for ($i = 0; $i < 10; $i++) {
+            $this->expectException(\InvalidArgumentException::class);
+            $this->expectExceptionMessage('Can not pick less than one item.');
+
+            $collection = new Collection(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']);
+            Random::pick($collection, 0);
+        }
+    }
+
+    public function testCantPickLessThanZeroElementFromCollection()
+    {
+        for ($i = 0; $i < 10; $i++) {
+            $this->expectException(\InvalidArgumentException::class);
+            $this->expectExceptionMessage('Can not pick less than one item.');
+
+            $collection = new Collection(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']);
+            Random::pick($collection, -1);
+        }
+    }
+
     public function testPickSingleFromArray()
     {
         $differentPick = false;
