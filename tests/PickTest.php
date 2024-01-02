@@ -30,6 +30,16 @@ class PickTest extends TestCase
         }
     }
 
+    public function testCantPickMoreThanArrayElements()
+    {
+        for ($i = 0; $i < 10; $i++) {
+            $this->expectException(\InvalidArgumentException::class);
+            $this->expectExceptionMessage('Can not pick more than existing elements.');
+
+            Random::pick(range('a', 'z'), 27);
+        }
+    }
+
     public function testCantPickZeroElementFromString()
     {
         for ($i = 0; $i < 10; $i++) {
@@ -47,6 +57,16 @@ class PickTest extends TestCase
             $this->expectExceptionMessage('Can not pick less than one item.');
 
             Random::pick('abcdefghijklmnopqrstuvwxyz', -1);
+        }
+    }
+
+    public function testCantPickMoreThanStringElements()
+    {
+        for ($i = 0; $i < 10; $i++) {
+            $this->expectException(\InvalidArgumentException::class);
+            $this->expectExceptionMessage('Can not pick more than existing elements.');
+
+            Random::pick('abcdefghijklmnopqrstuvwxyz', 27);
         }
     }
 
@@ -69,6 +89,17 @@ class PickTest extends TestCase
 
             $collection = new Collection(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']);
             Random::pick($collection, -1);
+        }
+    }
+
+    public function testCantPickMoreThanCollectionElements()
+    {
+        for ($i = 0; $i < 10; $i++) {
+            $this->expectException(\InvalidArgumentException::class);
+            $this->expectExceptionMessage('Can not pick more than existing elements.');
+
+            $collection = new Collection(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']);
+            Random::pick($collection, 10);
         }
     }
 

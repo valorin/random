@@ -233,6 +233,14 @@ class Generator
             throw new \InvalidArgumentException('Can not pick less than one item.');
         }
 
+        if (!is_string($values) && !is_array($values) && ! $values instanceof Collection) {
+            throw new \InvalidArgumentException('$value must be a string, array, or \Illuminate\Support\Collection.');
+        }
+
+        if (is_string($values) && $count > strlen($values) || !is_string($values) && $count > count($values)) {
+            throw new \InvalidArgumentException('Can not pick more than existing elements.');
+        }
+
         $values = $this->shuffle($values);
 
         if ($count === 1) {
@@ -250,8 +258,6 @@ class Generator
         if ($values instanceof Collection) {
             return $values->slice(0, $count);
         }
-
-        throw new \InvalidArgumentException('$value must be a string, array, or \Illuminate\Support\Collection.');
     }
 
     /**
