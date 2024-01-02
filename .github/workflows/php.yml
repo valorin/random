@@ -23,7 +23,7 @@ jobs:
           coverage: none
 
       - name: Validate composer.json and composer.lock
-        run: composer validate
+        run: composer validate --strict
 
       - name: Install Dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
