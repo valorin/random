@@ -10,6 +10,6 @@ trait Assertions
             return $this->assertMatchesRegularExpression($expression, $string, $message);
         }
 
-        return $this->assertRegExp($expression, $string, $message);
+        $this->assertRegExp($expression, $string, $message);
     }
 }
