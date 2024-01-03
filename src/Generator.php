@@ -233,11 +233,11 @@ class Generator
             throw new \InvalidArgumentException('Can not pick less than one item.');
         }
 
-        if (!is_string($values) && !is_array($values) && ! $values instanceof Collection) {
+        if (! is_string($values) && ! is_array($values) && ! $values instanceof Collection) {
             throw new \InvalidArgumentException('$value must be a string, array, or \Illuminate\Support\Collection.');
         }
 
-        if (is_string($values) && $count > strlen($values) || !is_string($values) && $count > count($values)) {
+        if ((is_string($values) && $count > strlen($values)) || (! is_string($values) && $count > count($values))) {
             throw new \InvalidArgumentException('Can not pick more than existing elements.');
         }
 
@@ -247,10 +247,6 @@ class Generator
             return $values[0];
         }
 
-        if (is_array($values)) {
-            return array_slice($values, 0, $count);
-        }
-
         if (is_string($values)) {
             return substr($values, 0, $count);
         }
@@ -258,6 +254,8 @@ class Generator
         if ($values instanceof Collection) {
             return $values->slice(0, $count);
         }
+
+        return array_slice($values, 0, $count);
     }
 
     /**
