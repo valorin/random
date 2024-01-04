@@ -168,7 +168,7 @@ class Generator
     }
 
     /**
-     * Generate a random string of $length with lowercase and uppercase letters, and numbers, divided by $divider.
+     * Generate a random string of $length with lowercase and uppercase letters, and numbers, divided by $delimiter.
      * This is suitable for use as a long random password that is easy to read and type.
      *
      * @param  int     $length
