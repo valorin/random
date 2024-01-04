@@ -180,7 +180,7 @@ class Generator
     {
         $string = $this->string($length, true, true, true, false, true);
 
-        return implode($delimiter, str_split($string, $chunkLength));
+        return wordwrap($string, $chunkLength, $delimiter, true);
     }
 
     /**
