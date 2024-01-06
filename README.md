@@ -96,7 +96,7 @@ $token = Random::token(int $length = 32): string;
 $password = Random::password(int $length = 16, bool $requireAll = false): string;
 
 // Random alphanumeric token string with chunks separated by dashes, making it easy to read and type.
-$password = Random::dashed(int $length = 25, string $delimiter = '-', int $chunkLength = 5): string;
+$password = Random::dashed(int $length = 25, string $delimiter = '-', int $chunkLength = 5, bool $lower = true): string;
 ```
 
 To limit the characters available in any of the types (i.e. lower, upper, numbers, or symbols),
