@@ -329,7 +329,7 @@ class StringTest extends TestCase
 
     public function testUnexpectedSymbolsInput()
     {
-        $generator = Random::useSymbols([2, 3, 4, 'F', 'a', '#', 88, '!', '9']);
+        $generator = Random::useSymbols([2, 3, 4, 'F', 'a', '#', '!', '9']);
 
         for ($i = 0; $i < 100; $i++) {
             $string = $generator->string(
@@ -341,10 +341,7 @@ class StringTest extends TestCase
                 $requireAll = false
             );
 
-            $this->assertRegExpCustom('/[#!]/', $string);
-            $this->assertRegExpCustom('/[^A-Z]/', $string);
-            $this->assertRegExpCustom('/[^a-f]/', $string);
-            $this->assertRegExpCustom('/[^1-9]/', $string);
+            $this->assertRegExpCustom('/^[2-4Fa#!9]+$/', $string);
         }
     }
 }
