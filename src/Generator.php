@@ -168,17 +168,18 @@ class Generator
     }
 
     /**
-     * Generate a random string of $length with lowercase and uppercase letters, and numbers, divided by $delimiter.
+     * Generate a random alphanumeric string of $length divided by $delimiter.
      * This is suitable for use as a long random password that is easy to read and type.
      *
      * @param  int     $length
      * @param  string  $delimiter
      * @param  int     $chunkLength = 5
+     * @param  bool    $lower
      * @return string
      */
-    public function dashed(int $length = 25, string $delimiter = '-', int $chunkLength = 5): string
+    public function dashed(int $length = 25, string $delimiter = '-', int $chunkLength = 5, bool $lower = true): string
     {
-        $string = $this->string($length, true, true, true, false, true);
+        $string = $this->string($length, $lower, true, true, false, true);
 
         return wordwrap($string, $chunkLength, $delimiter, true);
     }
