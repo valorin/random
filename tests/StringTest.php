@@ -218,10 +218,20 @@ class StringTest extends TestCase
     public function testDashed()
     {
         for ($i = 0; $i < 100; $i++) {
-            $string = Random::dashed($length = 25, $delimiter = '-');
+            $string = Random::dashed($length = 25, $delimiter = '-', $chunkLength = 5, $mixedCase = true);
 
             $this->assertIsString($string);
             $this->assertRegExpCustom('/^[a-zA-Z0-9]{5}\-[a-zA-Z0-9]{5}\-[a-zA-Z0-9]{5}\-[a-zA-Z0-9]{5}\-[a-zA-Z0-9]{5}$/', $string);
+        }
+    }
+
+    public function testDashedNoLowerCase()
+    {
+        for ($i = 0; $i < 100; $i++) {
+            $string = Random::dashed($length = 25, $delimiter = '-', $chunkLength = 5, $mixedCase = false);
+
+            $this->assertIsString($string);
+            $this->assertRegExpCustom('/^[A-Z0-9]{5}\-[A-Z0-9]{5}\-[A-Z0-9]{5}\-[A-Z0-9]{5}\-[A-Z0-9]{5}$/', $string);
         }
     }
 

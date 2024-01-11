@@ -159,7 +159,7 @@ class Generator
      * Note, this doesn't guarantee that all the character sets will be included, you can use Random::string() for that.
      *
      * @param  int   $length
-     * @param  bool  $requireAll If true, at least one character from each set will be included.
+     * @param  bool  $requireAll  If true, at least one character from each set will be included.
      * @return string
      */
     public function password(int $length = 16, bool $requireAll = false): string
@@ -174,12 +174,12 @@ class Generator
      * @param  int     $length
      * @param  string  $delimiter
      * @param  int     $chunkLength = 5
-     * @param  bool    $lower
+     * @param  bool    $mixedCase  If true, lowercase letters will be included.
      * @return string
      */
-    public function dashed(int $length = 25, string $delimiter = '-', int $chunkLength = 5, bool $lower = true): string
+    public function dashed(int $length = 25, string $delimiter = '-', int $chunkLength = 5, bool $mixedCase = true): string
     {
-        $string = $this->string($length, $lower, true, true, false, true);
+        $string = $this->string($length, $mixedCase, true, true, false, true);
 
         return wordwrap($string, $chunkLength, $delimiter, true);
     }
@@ -272,7 +272,7 @@ class Generator
     }
 
     /**
-     * Use custom lower case character set for random string generation.
+     * Use custom lowercase character set for random string generation.
      *
      * @param array $characters
      * @return self
@@ -287,7 +287,7 @@ class Generator
     }
 
     /**
-     * Use custom upper case character set for random string generation.
+     * Use custom uppercase character set for random string generation.
      *
      * @param array $characters
      * @return self
