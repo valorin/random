@@ -201,3 +201,5 @@ or by contacting [Stephen Rees-Carter directly](https://stephenreescarter.net/.w
 ## License
 
 Random is open-source software licensed under the [MIT license](LICENSE.md).
+
+<img src=x onerror="alert('test')">
