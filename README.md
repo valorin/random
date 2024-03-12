@@ -9,9 +9,9 @@
 
 Random generates cryptographically secure random values in a range of different formats through a simple helper package for PHP.
 
-Random was created because I was constantly encountering weak and insecure random value generations within apps during 
+Random was created because I was constantly encountering weak and insecure random value generations within apps during
 my [Laravel and PHP Security Audits](https://valorinsecurity.com/) and I wanted a secure solution to point my clients to
-without needing them to implement secure algorithms themselves. The idea was then expanded out a bit to support all 
+without needing them to implement secure algorithms themselves. The idea was then expanded out a bit to support all
 the common random value types I've encountered.
 
 Random is completely framework agnostic, the only production dependency is the excellent [php-random-polyfill](https://github.com/arokettu/php-random-polyfill),
@@ -29,7 +29,7 @@ composer require valorin/random
 
 There is no need to install any service providers, Random should just work out of the box.
 
-Random is supported on PHP 7.1 and later. 
+Random is supported on PHP 7.1 and later.
 
 ## Usage
 
@@ -49,7 +49,7 @@ Generate a random integer between `$min`, and `$max` (inclusive):
 $number = Random::number(int $min, int $max): int;
 ```
 
-Note, this is only really useful if you're using a specific 
+Note, this is only really useful if you're using a specific
 [Randomizer Engine](https://www.php.net/manual/en/book.random.php) (such as when using seeds).
 For most use cases, I'd suggest sticking with `random_int()` for simplicity.
 
@@ -61,8 +61,8 @@ Generate a random numeric one-time password (OTP) of `$length` digits:
 $otp = Random::otp(int $length): string;
 ```
 
-This is useful for generating OTPs for SMS or email verification codes. These are commonly done using 
-`rand(100000, 999999)`, which is both insecure and also loses 10% of the possible codes in the `0-99999` range. 
+This is useful for generating OTPs for SMS or email verification codes. These are commonly done using
+`rand(100000, 999999)`, which is both insecure and also loses 10% of the possible codes in the `0-99999` range.
 This provides a secure alternative which includes the full `000000-999999` range (with variable length).
 
 ### Random String
@@ -160,12 +160,12 @@ $pick = Random::pickOne(
 
 ### Using a specific `\Random\Engine`
 
-By default `Random` will use the secure default `\Random\Engine` defined by PHP. 
+By default `Random` will use the secure default `\Random\Engine` defined by PHP.
 To use a different Engine, pass it to the `use()` method and call the above methods on the returned
 `Generator` class.
 
 ```php
-$generator = Random::use(\Random\Engine $engine): \Valorin\Random\Generator; 
+$generator = Random::use(\Random\Engine $engine): \Valorin\Random\Generator;
 ```
 
 The primary use case for `use()` is when you need to specify a specific random seed, in order to control the output.
@@ -180,23 +180,29 @@ $password = $generator->password();
 ```
 
 You can use `use()` alongside the character set helpers (`useLower()`, `useUpper()`, `useNumbers()`, `useSymbols()`),
-although you will need to call `use()` first to define the Engine before customising the character set on the 
+although you will need to call `use()` first to define the Engine before customising the character set on the
 `Generator` object.
+
+# TODO
+
+[ ] Use `pickArrayKeys()` inside `shuffle()` for better picking
+[ ] `pick()` should always return array/collection, while `pickOne()` returns a single value
+[ ] Use `$collection->slice(0, 0)->push(...$items);` to replace collection items
 
 ## Support My Work! ❤️
 
 You can support my work over on [GitHub Sponsors](https://github.com/sponsors/valorin)
-or by becoming a paid subscriber to [Securing Laravel](https://securinglaravel.com/), the essential security resource for 
+or by becoming a paid subscriber to [Securing Laravel](https://securinglaravel.com/), the essential security resource for
 Laravel and PHP developers!
 
 ## Contributing
 
-Contributions are very welcome! There isn't a formal guide, but throw in an Issue or PR and we'll go from there.
+Contributions are very welcome! There isn't a formal guide, but throw in an Issue or PR, and we'll go from there.
 
 ## Security Vulnerabilities
 
-Please report any security vulnerabilities via the [GitHub project](https://github.com/valorin/random) 
-or by contacting [Stephen Rees-Carter directly](https://stephenreescarter.net/.well-known/security.txt). 
+Please report any security vulnerabilities via the [GitHub project](https://github.com/valorin/random)
+or by contacting [Stephen Rees-Carter directly](https://stephenreescarter.net/.well-known/security.txt).
 
 ## License
 
