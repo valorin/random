@@ -28,7 +28,7 @@ class Generator
      *
      * @param \Random\Engine|null $engine
      */
-    public function __construct(Engine $engine = null)
+    public function __construct(?Engine $engine = null)
     {
         $this->randomizer = new Randomizer($engine);
 
