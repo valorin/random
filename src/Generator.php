@@ -151,7 +151,7 @@ class Generator
      */
     public function token(int $length = 32): string
     {
-        return $this->string($length, true, true, true, false, true);
+        return $this->string($length, $lower = true, $upper = true, $numbers = true, $symbols = false, $requireAll = true);
     }
 
     /**
@@ -179,7 +179,7 @@ class Generator
      */
     public function dashed(int $length = 25, string $delimiter = '-', int $chunkLength = 5, bool $mixedCase = true): string
     {
-        $string = $this->string($length, $mixedCase, true, true, false, true);
+        $string = $this->string($length, $lower = $mixedCase, $upper = true, $numbers = true, $symbols = false, $requireAll = true);
 
         return wordwrap($string, $chunkLength, $delimiter, true);
     }
@@ -201,6 +201,7 @@ class Generator
         if ($values instanceof Collection) {
             $shuffled = $this->shuffle($values->toArray(), $preserveKeys);
             $class = get_class($values);
+
             return new $class($shuffled);
         }
 
