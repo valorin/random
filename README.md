@@ -137,23 +137,21 @@ $shuffled = Random::shuffle(
 
 ### Pick `$count` Items or Characters
 
-Securely pick `$count` items (or characters) from an array, string, or Laravel Collection.
+Securely pick `$count` items (or characters) from an array or Laravel Collection.
 
 ```php
 $picks = Random::pick(
-    array|string|\Illuminate\Support\Collection $values,
+    array|\Illuminate\Support\Collection $values,
     int $count
-): array|string|\Illuminate\Support\Collection;
+): array|\Illuminate\Support\Collection;
 ```
 
-Passing `$count > 1` will return the picks in the same type as `$values`, so either an array, a Collection,
-or a string of characters.
+Will return the picks in the same type as `$values`, so either as an array or a Collection. 
 
-When passing `$count = 1`, the output will be a single array/collection item or character chosen from the input.
-You can also use the alias `pickOne()` to pick a single item from `$values`:
+To pick a single item, use the `single()` method (or `pickOne()` alias) to select a single item and return just that item. This also supports strings, and will return a single character from the string.
 
 ```php
-$pick = Random::pickOne(
+$pick = Random::single(
     array|string|\Illuminate\Support\Collection $values
 ): array|string|\Illuminate\Support\Collection;
 ```
@@ -182,12 +180,6 @@ $password = $generator->password();
 You can use `use()` alongside the character set helpers (`useLower()`, `useUpper()`, `useNumbers()`, `useSymbols()`),
 although you will need to call `use()` first to define the Engine before customising the character set on the
 `Generator` object.
-
-# TODO
-
-[ ] Use `pickArrayKeys()` inside `shuffle()` for better picking
-[ ] `pick()` should always return array/collection, while `pickOne()` returns a single value
-[ ] Use `$collection->slice(0, 0)->push(...$items);` to replace collection items
 
 ## Support My Work! ❤️
 

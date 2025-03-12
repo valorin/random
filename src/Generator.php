@@ -260,7 +260,7 @@ class Generator
      * @param  array|string|\Illuminate\Support\Collection  $values
      * @return array|string|\Illuminate\Support\Collection
      */
-    public function pickOne($values)
+    public function single($values)
     {
         if (is_string($values)) {
             $values = str_split($values);
@@ -269,6 +269,14 @@ class Generator
         $picked = $this->pick($values, 1);
 
         return is_array($picked) ? array_shift($picked) : $picked->first();
+    }
+
+    /**
+     * @alias single()
+     */
+    public function pickOne($values)
+    {
+        return $this->single($values);
     }
 
     /**

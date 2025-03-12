@@ -15,6 +15,7 @@ namespace Valorin\Random;
  * @method static string dashed(int $length = 25, string $delimiter = '-', int $chunkLength = 5, bool $mixedCase = true) Generate a random string of $length with lowercase and uppercase letters, and numbers, divided by $divider.
  * @method static array|string|\Illuminate\Support\Collection shuffle(array|string|\Illuminate\Support\Collection $values, bool $preserveKeys = false) Shuffle the characters in an array, string, or Laravel Collection, optionally preserving the keys.
  * @method static array|\Illuminate\Support\Collection pick(array|\Illuminate\Support\Collection $values, int $count) Pick $count random items (or characters) from an array or Laravel Collection.
+ * @method static array|string|\Illuminate\Support\Collection single(array|string|\Illuminate\Support\Collection $values) Picks a single item (or character) from an array, string, or Laravel Collection.
  * @method static array|string|\Illuminate\Support\Collection pickOne(array|string|\Illuminate\Support\Collection $values) Picks a single item (or character) from an array, string, or Laravel Collection.
  * @method static Generator useLower(array $characters) Use custom lower case character set for random string generation.
  * @method static Generator useUpper(array $characters) Use custom upper case character set for random string generation.
