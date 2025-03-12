@@ -7,238 +7,129 @@ use PHPUnit\Framework\TestCase;
 use Valorin\Random\Random;
 
 class PickTest extends TestCase
-{
+    {
     use Assertions;
 
     public function testCantPickZeroElementFromArray()
     {
-        for ($i = 0; $i < 10; $i++) {
-            $this->expectException(\InvalidArgumentException::class);
-            $this->expectExceptionMessage('Can not pick less than one item.');
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Can not pick less than one item.');
 
-            Random::pick(range('a', 'z'), 0);
-        }
+        Random::pick(range('a', 'z'), 0);
     }
 
     public function testCantPickLessThanZeroElementFromArray()
     {
-        for ($i = 0; $i < 10; $i++) {
-            $this->expectException(\InvalidArgumentException::class);
-            $this->expectExceptionMessage('Can not pick less than one item.');
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Can not pick less than one item.');
 
-            Random::pick(range('a', 'z'), -1);
-        }
+        Random::pick(range('a', 'z'), -1);
     }
 
     public function testCantPickMoreThanArrayElements()
     {
-        for ($i = 0; $i < 10; $i++) {
-            $this->expectException(\InvalidArgumentException::class);
-            $this->expectExceptionMessage('Can not pick more than existing elements.');
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Can not pick more than existing elements.');
 
-            Random::pick(range('a', 'z'), 27);
-        }
-    }
-
-    public function testCantPickZeroElementFromString()
-    {
-        for ($i = 0; $i < 10; $i++) {
-            $this->expectException(\InvalidArgumentException::class);
-            $this->expectExceptionMessage('Can not pick less than one item.');
-
-            Random::pick('abcdefghijklmnopqrstuvwxyz', 0);
-        }
-    }
-
-    public function testCantPickLessThanZeroElementFromString()
-    {
-        for ($i = 0; $i < 10; $i++) {
-            $this->expectException(\InvalidArgumentException::class);
-            $this->expectExceptionMessage('Can not pick less than one item.');
-
-            Random::pick('abcdefghijklmnopqrstuvwxyz', -1);
-        }
-    }
-
-    public function testCantPickMoreThanStringElements()
-    {
-        for ($i = 0; $i < 10; $i++) {
-            $this->expectException(\InvalidArgumentException::class);
-            $this->expectExceptionMessage('Can not pick more than existing elements.');
-
-            Random::pick('abcdefghijklmnopqrstuvwxyz', 27);
-        }
+        Random::pick(range('a', 'z'), 27);
     }
 
     public function testCantPickZeroElementFromCollection()
     {
-        for ($i = 0; $i < 10; $i++) {
-            $this->expectException(\InvalidArgumentException::class);
-            $this->expectExceptionMessage('Can not pick less than one item.');
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Can not pick less than one item.');
 
-            $collection = new Collection(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']);
-            Random::pick($collection, 0);
-        }
+        $collection = new Collection(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']);
+        Random::pick($collection, 0);
     }
 
     public function testCantPickLessThanZeroElementFromCollection()
     {
-        for ($i = 0; $i < 10; $i++) {
-            $this->expectException(\InvalidArgumentException::class);
-            $this->expectExceptionMessage('Can not pick less than one item.');
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Can not pick less than one item.');
 
-            $collection = new Collection(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']);
-            Random::pick($collection, -1);
-        }
+        $collection = new Collection(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']);
+        Random::pick($collection, -1);
     }
 
     public function testCantPickMoreThanCollectionElements()
     {
-        for ($i = 0; $i < 10; $i++) {
-            $this->expectException(\InvalidArgumentException::class);
-            $this->expectExceptionMessage('Can not pick more than existing elements.');
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Can not pick more than existing elements.');
 
-            $collection = new Collection(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']);
-            Random::pick($collection, 10);
-        }
+        $collection = new Collection(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']);
+        Random::pick($collection, 10);
     }
 
     public function testPickSingleFromArray()
     {
-        $differentPick = false;
+        $array = range('a', 'z');
+        $picked = Random::pick($array, 1);
 
-        for ($i = 0; $i < 10; $i++) {
-            $array = range('a', 'z');
-            $picked = Random::pick($array, 1);
-
-            $this->assertIsString($picked);
-            $this->assertContains($picked, $array);
-
-            $differentPick = $differentPick || $picked !== Random::pick($array, 1);
-        }
-
-        $this->assertTrue($differentPick);
-    }
-
-    public function testPickSingleFromString()
-    {
-        $differentPick = false;
-
-        for ($i = 0; $i < 10; $i++) {
-            $string = 'abcdefghijklmnopqrstuvwxyz';
-            $picked = Random::pick($string, 1);
-
-            $this->assertIsString($picked);
-            $this->assertStringContainsString($picked, $string);
-
-            $differentPick = $differentPick || $picked !== Random::pick($string, 1);
-        }
-
-        $this->assertTrue($differentPick);
+        $this->assertIsArray($picked);
+        $this->assertCount(1, $picked);
+        $this->assertContains($picked[0], $array);
+        $this->assertNotSame(Random::pick($array, 1), $picked, 'Picks should be different. (Low chance of false positives.)');
     }
 
     public function testPickMultipleFromArray()
     {
-        for ($i = 0; $i < 10; $i++) {
-            $array = range('a', 'z');
-            $picked = Random::pick($array, 3);
+        $array = range('a', 'z');
+        $picked = Random::pick($array, 3);
 
-            $this->assertIsArray($picked);
-            $this->assertCount(3, $picked);
-            $this->assertNotSame(Random::pick($array, 3), $picked, 'Picks should be different. (Low chance of false positives.)');
-        }
-    }
-
-    public function testPickMultipleFromString()
-    {
-        for ($i = 0; $i < 10; $i++) {
-            $string = 'abcdefghijklmnopqrstuvwxyz';
-            $picked = Random::pick($string, 3);
-
-            $this->assertIsString($picked);
-            $this->assertEquals(3, strlen($picked));
-            $this->assertNotSame(Random::pick($string, 3), $picked, 'Picks should be different. (Low chance of false positives.)');
-            $this->assertRegExpCustom('/^[a-z]+$/', $string);
-        }
+        $this->assertIsArray($picked);
+        $this->assertCount(3, $picked);
+        $this->assertNotSame(Random::pick($array, 3), $picked, 'Picks should be different. (Low chance of false positives.)');
     }
 
     public function testPickSingleFromCollection()
     {
-        $differentPick = false;
+        $collection = new Collection(range('a', 'z'));
+        $picked = Random::pick($collection, 1);
 
-        for ($i = 0; $i < 10; $i++) {
-            $collection = new Collection(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']);
-            $picked = Random::pick($collection, 1);
-
-            $this->assertIsString($picked);
-            $this->assertTrue($collection->contains($picked));
-
-            $differentPick = $differentPick || $picked !== Random::pick($collection, 1);
-        }
-
-        $this->assertTrue($differentPick);
+        $this->assertInstanceOf(Collection::class, $picked);
+        $this->assertCount(1, $picked);
+        $this->assertNotSame(Random::pick($collection, 1)->toArray(), $picked->toArray(), 'Picks should be different. (Low chance of false positives.)');
     }
 
     public function testPickMultipleFromCollection()
     {
-        for ($i = 0; $i < 10; $i++) {
-            $collection = new Collection(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']);
-            $picked = Random::pick($collection, 3);
+        $collection = new Collection(range('a', 'z'));
+        $picked = Random::pick($collection, 3);
 
-            $this->assertInstanceOf(Collection::class, $picked);
-            $this->assertCount(3, $picked);
-            $this->assertNotSame(Random::pick($collection, 3)->toArray(), $picked->toArray(), 'Picks should be different. (Low chance of false positives.)');
-        }
+        $this->assertInstanceOf(Collection::class, $picked);
+        $this->assertCount(3, $picked);
+        $this->assertNotSame(Random::pick($collection, 3)->toArray(), $picked->toArray(), 'Picks should be different. (Low chance of false positives.)');
     }
 
     public function testPickOneFromArray()
     {
-        $differentPick = false;
+        $array = range('a', 'z');
+        $picked = Random::pickOne($array);
 
-        for ($i = 0; $i < 10; $i++) {
-            $array = range('a', 'z');
-            $picked = Random::pickOne($array);
-
-            $this->assertIsString($picked);
-            $this->assertContains($picked, $array);
-
-            $differentPick = $differentPick || $picked !== Random::pickOne($array);
-        }
-
-        $this->assertTrue($differentPick);
+        $this->assertIsString($picked);
+        $this->assertContains($picked, $array);
+        $this->assertNotSame(Random::pickOne($array), $picked, 'Picks should be different. (Low chance of false positives.)');
     }
 
     public function testPickOneFromString()
     {
-        $differentPick = false;
+        $string = 'abcdefghijklmnopqrstuvwxyz';
+        $picked = Random::pickOne($string);
 
-        for ($i = 0; $i < 10; $i++) {
-            $string = 'abcdefghijklmnopqrstuvwxyz';
-            $picked = Random::pickOne($string);
-
-            $this->assertIsString($picked);
-            $this->assertStringContainsString($picked, $string);
-
-            $differentPick = $differentPick || $picked !== Random::pickOne($string);
-        }
-
-        $this->assertTrue($differentPick);
+        $this->assertIsString($picked);
+        $this->assertEquals(1, strlen($picked));
+        $this->assertStringContainsString($picked, $string);
+        $this->assertNotSame(Random::pickOne($string), $picked, 'Picks should be different. (Low chance of false positives.)');
     }
 
     public function testPickOneFromCollection()
     {
-        $differentPick = false;
+        $collection = new Collection(range('a', 'z'));
+        $picked = Random::pickOne($collection);
 
-        for ($i = 0; $i < 10; $i++) {
-            $collection = new Collection(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']);
-            $picked = Random::pickOne($collection);
-
-            $this->assertIsString($picked);
-            $this->assertTrue($collection->contains($picked));
-
-            $differentPick = $differentPick || $picked !== Random::pickOne($collection);
-        }
-
-        $this->assertTrue($differentPick);
+        $this->assertIsString($picked);
+        $this->assertTrue($collection->contains($picked));
+        $this->assertNotSame(Random::pickOne($collection), $picked, 'Picks should be different. (Low chance of false positives.)');
     }
 }

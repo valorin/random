@@ -217,17 +217,18 @@ class Generator
 
         return array_reduce($shuffledKeys, function ($carry, $key) use ($values) {
             $carry[$key] = $values[$key];
+
             return $carry;
         }, []);
     }
 
     /**
-     * Pick $count random items (or characters) from an array, string, or Laravel Collection.
-     * Passing `$count = 1` will return the single item, while `$count > 1` will return multiple picked items in the original type.
+     * Pick $count random items (or characters) from an array or Laravel Collection.
+     * Returns the $count items in a new array or Collection.
      *
-     * @param  array|string|\Illuminate\Support\Collection  $values
-     * @param  int                                          $count  Number of items to pick.
-     * @return array|string|\Illuminate\Support\Collection
+     * @param  array|\Illuminate\Support\Collection  $values
+     * @param  int  $count                                    Number of items to pick.
+     * @return array|\Illuminate\Support\Collection
      */
     public function pick($values, int $count)
     {
@@ -235,23 +236,15 @@ class Generator
             throw new \InvalidArgumentException('Can not pick less than one item.');
         }
 
-        if (! is_string($values) && ! is_array($values) && ! $values instanceof Collection) {
-            throw new \InvalidArgumentException('$value must be a string, array, or \Illuminate\Support\Collection.');
+        if (! is_array($values) && ! $values instanceof Collection) {
+            throw new \InvalidArgumentException('$value must be an array or \Illuminate\Support\Collection.');
         }
 
-        if ((is_string($values) && $count > strlen($values)) || (! is_string($values) && $count > count($values))) {
+        if ($count > count($values)) {
             throw new \InvalidArgumentException('Can not pick more than existing elements.');
         }
 
         $values = $this->shuffle($values);
-
-        if ($count === 1) {
-            return $values[0];
-        }
-
-        if (is_string($values)) {
-            return substr($values, 0, $count);
-        }
 
         if ($values instanceof Collection) {
             return $values->slice(0, $count);
@@ -269,7 +262,13 @@ class Generator
      */
     public function pickOne($values)
     {
-        return $this->pick($values, 1);
+        if (is_string($values)) {
+            $values = str_split($values);
+        }
+
+        $picked = $this->pick($values, 1);
+
+        return is_array($picked) ? array_shift($picked) : $picked->first();
     }
 
     /**
