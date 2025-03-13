@@ -329,12 +329,14 @@ class Generator
     /**
      * Use custom symbol character set for random string generation.
      *
-     * @param array $characters
+     * @param array|string $characters
      * @return self
      */
-    public function useSymbols(array $characters): self
-    {
-        $this->symbolCharacters = $characters;
+    public function useSymbols(array|string $characters): self
+    {        
+        $this->symbolCharacters = is_array($characters)
+            ? $characters
+            : str_split($characters);
 
         return $this;
     }
