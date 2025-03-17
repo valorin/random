@@ -282,11 +282,15 @@ class Generator
     /**
      * Use custom lowercase character set for random string generation.
      *
-     * @param array $characters
+     * @param array|string $characters
      * @return self
      */
-    public function useLower(array $characters): self
+    public function useLower($characters): self
     {
+        $characters = is_array($characters)
+            ? $characters
+            : str_split($characters);
+
         $characters = array_filter($characters, 'ctype_lower');
 
         $this->lowerCharacters = $characters;
@@ -297,11 +301,15 @@ class Generator
     /**
      * Use custom uppercase character set for random string generation.
      *
-     * @param array $characters
+     * @param array|string $characters
      * @return self
      */
-    public function useUpper(array $characters): self
+    public function useUpper($characters): self
     {
+        $characters = is_array($characters)
+            ? $characters
+            : str_split($characters);
+
         $characters = array_filter($characters, 'ctype_upper');
 
         $this->upperCharacters = $characters;
@@ -312,11 +320,15 @@ class Generator
     /**
      * Use custom numbers for random string generation.
      *
-     * @param array $characters
+     * @param array|string $characters
      * @return self
      */
-    public function useNumbers(array $characters): self
+    public function useNumbers($characters): self
     {
+        $characters = is_array($characters)
+            ? $characters
+            : str_split($characters);
+
         $characters = array_filter($characters, function ($character) {
             return $character >= 0 && $character <= 9;
         });
@@ -332,8 +344,8 @@ class Generator
      * @param array|string $characters
      * @return self
      */
-    public function useSymbols(array|string $characters): self
-    {        
+    public function useSymbols($characters): self
+    {
         $this->symbolCharacters = is_array($characters)
             ? $characters
             : str_split($characters);

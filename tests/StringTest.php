@@ -354,4 +354,76 @@ class StringTest extends TestCase
             $this->assertRegExpCustom('/^[2-4Fa#!9]+$/', $string);
         }
     }
+
+    public function testLowerInputFromString()
+    {
+        $generator = Random::useLower('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+
+        for ($i = 0; $i < 100; $i++) {
+            $string = $generator->string(
+                $length = 32,
+                $lower = true,
+                $upper = false,
+                $numbers = false,
+                $symbols = false,
+                $requireAll = false
+            );
+
+            $this->assertRegExpCustom('/^[a-z]+$/', $string);
+        }
+    }
+
+    public function testUpperInputFromString()
+    {
+        $generator = Random::useUpper('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+
+        for ($i = 0; $i < 100; $i++) {
+            $string = $generator->string(
+                $length = 32,
+                $lower = false,
+                $upper = true,
+                $numbers = false,
+                $symbols = false,
+                $requireAll = false
+            );
+
+            $this->assertRegExpCustom('/^[A-Z]+$/', $string);
+        }
+    }
+
+    public function testNumbersInputFromString()
+    {
+        $generator = Random::useNumbers("02468");
+
+        for ($i = 0; $i < 100; $i++) {
+            $string = $generator->string(
+                $length = 32,
+                $lower = false,
+                $upper = false,
+                $numbers = true,
+                $symbols = false,
+                $requireAll = false
+            );
+
+            $this->assertRegExpCustom('/[0|2|4|6|8]/', $string);
+        }
+    }
+
+    public function testSymbolsInputFromString()
+    {
+        $generator = Random::useSymbols('abcdefghijklmnopqrstuvwxyz12345^&*()');
+
+        for ($i = 0; $i < 100; $i++) {
+            $string = $generator->string(
+                $length = 32,
+                $lower = false,
+                $upper = false,
+                $numbers = false,
+                $symbols = true,
+                $requireAll = false
+            );
+
+            $this->assertRegExpCustom('/^[a-z12345^&*()]+$/', $string);
+        }
+    }
 }

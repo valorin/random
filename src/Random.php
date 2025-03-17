@@ -17,10 +17,10 @@ namespace Valorin\Random;
  * @method static array|\Illuminate\Support\Collection pick(array|\Illuminate\Support\Collection $values, int $count) Pick $count random items (or characters) from an array or Laravel Collection.
  * @method static array|string|\Illuminate\Support\Collection single(array|string|\Illuminate\Support\Collection $values) Picks a single item (or character) from an array, string, or Laravel Collection.
  * @method static array|string|\Illuminate\Support\Collection pickOne(array|string|\Illuminate\Support\Collection $values) Picks a single item (or character) from an array, string, or Laravel Collection.
- * @method static Generator useLower(array $characters) Use custom lower case character set for random string generation.
- * @method static Generator useUpper(array $characters) Use custom upper case character set for random string generation.
- * @method static Generator useNumbers(array $characters) Use custom number characters for random string generation.
- * @method static Generator useSymbols(array $characters) Use custom symbol character set for random string generation.
+ * @method static Generator useLower(array|string $characters) Use custom lower case character set for random string generation.
+ * @method static Generator useUpper(array|string $characters) Use custom upper case character set for random string generation.
+ * @method static Generator useNumbers(array|string $characters) Use custom number characters for random string generation.
+ * @method static Generator useSymbols(array|string $characters) Use custom symbol character set for random string generation.
  */
 class Random
 {
