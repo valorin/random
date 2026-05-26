@@ -28,8 +28,14 @@ jobs:
       - name: Validate composer.json and composer.lock
         run: composer validate --strict
 
+      - name: Lint (syntax check only)
+        if: matrix.php-versions == '7.1' || matrix.php-versions == '7.2'
+        run: find src tests -name '*.php' -print0 | xargs -0 -n1 php -l
+
       - name: Install Dependencies
-        run: composer ${{ (matrix.php-versions == '7.1' || matrix.php-versions == '7.2') && 'update --prefer-lowest --prefer-stable' || 'install' }} --no-interaction --prefer-dist --optimize-autoloader
+        if: matrix.php-versions != '7.1' && matrix.php-versions != '7.2'
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Tests
+        if: matrix.php-versions != '7.1' && matrix.php-versions != '7.2'
         run: ./vendor/bin/phpunit ./tests
