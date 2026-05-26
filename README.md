@@ -191,6 +191,15 @@ Laravel and PHP developers!
 
 Contributions are very welcome! There isn't a formal guide, but throw in an Issue or PR, and we'll go from there.
 
+### Running the tests
+
+```bash
+composer install
+./vendor/bin/phpunit ./tests
+```
+
+PHP 7.1 and 7.2 are still supported at runtime, but PHPUnit's current dev-dependency chain no longer installs on them. CI syntax-checks the source on those versions via `php -l` instead of running the test suite — enough to catch any code that wouldn't parse on PHP 7.1/7.2. The full test suite runs on PHP 7.3 and later.
+
 ## Security Vulnerabilities
 
 Please report any security vulnerabilities via the [GitHub project](https://github.com/valorin/random)
