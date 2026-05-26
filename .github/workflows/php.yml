@@ -29,7 +29,7 @@ jobs:
         run: composer validate --strict
 
       - name: Install Dependencies
-        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+        run: composer ${{ (matrix.php-versions == '7.1' || matrix.php-versions == '7.2') && 'update --prefer-lowest --prefer-stable' || 'install' }} --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Tests
         run: ./vendor/bin/phpunit ./tests

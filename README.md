@@ -191,6 +191,24 @@ Laravel and PHP developers!
 
 Contributions are very welcome! There isn't a formal guide, but throw in an Issue or PR, and we'll go from there.
 
+### Running the tests
+
+On PHP 7.3 and later, a normal install works:
+
+```bash
+composer install
+./vendor/bin/phpunit ./tests
+```
+
+On PHP 7.1 and 7.2, recent patches of PHPUnit's transitive dependencies have dropped support for those versions, so install the lowest compatible set of dev dependencies instead:
+
+```bash
+composer update --prefer-lowest --prefer-stable
+./vendor/bin/phpunit ./tests
+```
+
+This only affects dev dependencies — runtime dependencies are unchanged.
+
 ## Security Vulnerabilities
 
 Please report any security vulnerabilities via the [GitHub project](https://github.com/valorin/random)
